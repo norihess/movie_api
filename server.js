@@ -28,7 +28,7 @@ http.createServer((request, response) => {
 
     response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write(data);
-    response.end('Welcome to my Movie club!');
+    response.end('Welcome to the club!');
 
   });
 
