@@ -2,8 +2,8 @@ let express = require('express'),
   app = express(),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  methodOverride = require('method-override'),
-  uuid = require('uuid');
+  methodOverride = require('method-override');
+  // uuid = require('uuid');
 
 
 let movies = [
@@ -53,20 +53,16 @@ app.get('/movies', (req,res)=>{
 
 //list of director
 app.get('/director', (req,res)=>{
+  let directors = movies.map(movie => ['director']);
   res.json(director);
 });
 
 //list of genre
 app.get('/genre', (req,res)=>{
-  res.json(genre);
+  let genre = movies.map(movie => ['genre']);
+  let uniqueGenre = [...new Set(genre)];
+  res.json(uniqueGenre);
 });
-// app.get('/documentation', (req, res) => {
-//   res.sendFile('public/documentation.html', { root: __dirname });
-// });
-//
-// app.get('/topMovies', (req, res) => {
-//   res.json(topMovies);
-// });
 
 //error handler
 app.use(express.static('public'));
