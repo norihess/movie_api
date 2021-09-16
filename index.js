@@ -52,13 +52,13 @@ app.get('/movies', (req,res)=>{
 });
 
 //list of director
-app.get('/director', (req,res)=>{
+app.get('/director', (req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,res:Response<ResBody, ResLocals>)=>{
   let directors = movies.map(movie => ['director']);
   res.json(director);
 });
 
 //list of genre
-app.get('/genre', (req,res)=>{
+app.get('/genre', (req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,res:Response<ResBody, ResLocals> )=>{
   let genre = movies.map(movie => ['genre']);
   let uniqueGenre = [...new Set(genre)];
   res.json(uniqueGenre);
