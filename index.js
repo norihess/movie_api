@@ -1,8 +1,10 @@
-let express = require("express"),
-  morgan = require('morgan'),
+let express = require('express'),
   app = express(),
+  morgan = require('morgan'),
   bodyParser = require('body-parser'),
+  methodOverride = require('method-override'),
   uuid = require('uuid');
+
 
 let topMovies = [
   {
@@ -39,36 +41,49 @@ let topMovies = [
 // GET requests
 app.use(bodyParser.json());
 app.use(morgan('common'));
+//welcome message
+app.get('/', (req, res) => {
+  res.send('Welcome to the club!');
+});
 
-app.get('movies', (req, res) => {
+//list of movies
+app.get('/topMovies', (req,res)=>{
   res.json(topMovies);
 });
 
-
-app.get('director', (req, res) => {
+//list of director
+app.get('/director', (req,res)=>{
   res.json(director);
 });
 
-app.get ('genre', (req, res) => {
+//list of genre
+app.get('/genre', (req,res)=>{
   res.json(genre);
-})
-
-app.get('/documentation', (req, res) => {
-  res.sendFile('public/documentation.html', { root: __dirname });
 });
+// app.get('/documentation', (req, res) => {
+//   res.sendFile('public/documentation.html', { root: __dirname });
+// });
+//
+// app.get('/topMovies', (req, res) => {
+//   res.json(topMovies);
+// });
 
-app.get('/movies', (req, res) => {
-  res.json(topMovies);
-});
+//error handler
+app.use(express.static('public'));
 
-
-app.use(express.static('/public/documentation.html'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+//
+// app.use(bodyParser.json());
+// app.use(methodOverride());
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
+  console.log (err.stack);
+  res.status(500).send('Something is Wrong!')
 });
 
+// listen for requests
 app.listen(8080, () => {
-  console.log('Movie Api is listening on port 8080.')
+  console.log('Your app is listening on port 8080.');
 });
