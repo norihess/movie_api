@@ -41,6 +41,7 @@ let movies = [
 // GET requests
 app.use(bodyParser.json());
 app.use(morgan('common'));
+
 //welcome message
 app.get('/', (req, res) => {
   res.send('Welcome to the club!');
@@ -52,13 +53,13 @@ app.get('/movies', (req,res)=>{
 });
 
 //list of director
-app.get('/director', (req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,res:Response<ResBody, ResLocals>)=>{
+app.get('/director', (req,res)=>{
   let directors = movies.map(movie => ['director']);
   res.json(director);
 });
 
 //list of genre
-app.get('/genre', (req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,res:Response<ResBody, ResLocals> )=>{
+app.get('/genre', (req, res)=>{
   let genre = movies.map(movie => ['genre']);
   let uniqueGenre = [...new Set(genre)];
   res.json(uniqueGenre);
