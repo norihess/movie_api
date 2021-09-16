@@ -77,7 +77,7 @@ app.use(bodyParser.urlencoded({
 //
 // app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(uuid());
+// app.use(uuid());
 
 app.use((err, req, res, next) => {
   console.log (err.stack);
