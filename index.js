@@ -6,7 +6,7 @@ let express = require('express'),
   uuid = require('uuid');
 
 
-let topMovies = [
+let movies = [
   {
     title: 'The Conjuring',
     director: 'Michael Chaves',
@@ -47,8 +47,8 @@ app.get('/', (req, res) => {
 });
 
 //list of movies
-app.get('/topMovies', (req,res)=>{
-  res.json(topMovies);
+app.get('/movies', (req,res)=>{
+  res.json(movies);
 });
 
 //list of director
@@ -76,7 +76,8 @@ app.use(bodyParser.urlencoded({
 }));
 //
 // app.use(bodyParser.json());
-// app.use(methodOverride());
+app.use(methodOverride());
+app.use(uuid());
 
 app.use((err, req, res, next) => {
   console.log (err.stack);
