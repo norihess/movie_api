@@ -17,7 +17,7 @@ http.createServer((request, response) => {
   });
 
   if (q.pathname.includes('documentation')) {
-    filePath = (__dirname + 'public/documentation.html');
+    filePath = (__dirname + '/public/documentation.html');
   } else {
     filePath = 'index.html';
   }
@@ -40,8 +40,8 @@ http.createServer((request, response) => {
 let express = require('express'),
   app = express(),
   morgan = require('morgan'),
-  bodyParser = require('body-parser'),
-  methodOverride = require('method-override');
+  // bodyParser = require('body-parser'),
+  // methodOverride = require('method-override');
   // uuid = require('uuid');
 
 
@@ -78,7 +78,7 @@ let movies = [
 ];
 
 // GET requests
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(morgan('common'));
 
 //welcome message
@@ -91,28 +91,28 @@ app.get('/movies', (req,res)=>{
   res.json(movies);
 });
 
-//list of director
-app.get('/director', (req,res)=>{
-  let directors = movies.map(movie => ['director']);
-  res.json(director);
-});
-
-//list of genre
-app.get('/genre', (req, res)=>{
-  let genre = movies.map(movie => ['genre']);
-  let uniqueGenre = [...new Set(genre)];
-  res.json(uniqueGenre);
-});
+// //list of director
+// app.get('/director', (req,res)=>{
+//   let directors = movies.map(movie => ['director']);
+//   res.json(director);
+// });
+//
+// //list of genre
+// app.get('/genre', (req, res)=>{
+//   let genre = movies.map(movie => ['genre']);
+//   let uniqueGenre = [...new Set(genre)];
+//   res.json(uniqueGenre);
+// });
 
 //error handler
 app.use(express.static('public'));
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
 //
 // app.use(bodyParser.json());
-app.use(methodOverride());
+// app.use(methodOverride());
 // app.use(uuid());
 
 app.use((err, req, res, next) => {
