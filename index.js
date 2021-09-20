@@ -1,37 +1,23 @@
 let http = require('http'),
   fs = require('fs'),
   url = require('url'),
-  addr = 'http://localhost:8080';
+  addr = 'http://localhost:8080/';
 
-http.createServer((request, response) => {
-  let addr = request.url,
-    q = url.parse(addr, true),
-    filePath = '';
+  const http = require('http');
 
-  fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('Added to log.');
-    }
-  });
-
-  if (q.pathname.includes('documentation')) {
-    filePath = (__dirname + '/public/documentation.html');
+  http.createServer((request, response) => {
+  let requestURL = url.parse(request.url, true);
+  if ( requestURL.pathname == '/documentation.html') {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.end('Documentation on the bookclub API.\n');
   } else {
-    filePath = 'index.html';
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.end('Welcome to the club!\n');
   }
 
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      throw err;
-    }
+}).listen(8080);
 
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    response.write(data);
-    response.end();
-
-  });
+console.log('My first Node test server is running on Port 8080.');
 //
 // }).listen(8080);
 // console.log('My test server is running on Port 8080.');
@@ -40,15 +26,22 @@ http.createServer((request, response) => {
 let express = require('express'),
   app = express(),
   morgan = require('morgan'),
-  // bodyParser = require('body-parser'),
-  // methodOverride = require('method-override');
+  bodyParser = require('body-parser'),
+  methodOverride = require('method-override'),
   // uuid = require('uuid');
-  let myLogger = (req, res, next) => {
-    console.log(req.url);
-    next();
-  };
+  myLogger = (req, res, next) => {
+  console.log(req.url);
+  next();
+};
 
-  app.use(myLogger);
+app.use(morgan('common'));
+app.use(myLogger);
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
+app.use(methodOverride());
 
 let movies = [
   {
@@ -84,15 +77,17 @@ let movies = [
 
 // GET requests
 // app.use(bodyParser.json());
-app.use(morgan('common'));
 
-//welcome message
+// GET requests
 app.get('/', (req, res) => {
   res.send('Welcome to the club!');
 });
 
-//list of movies
-app.get('/movies', (req,res)=>{
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
+
+app.get('/movies', (req, res) => {
   res.json(movies);
 });
 
