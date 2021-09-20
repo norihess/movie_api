@@ -1,6 +1,7 @@
 let http = require('http'),
-fs = require('fs'),
-url = require('url');
+  fs = require('fs'),
+  url = require('url'),
+  addr = 'http://localhost:8080';
 
 http.createServer((request, response) => {
   let addr = request.url,
@@ -16,7 +17,7 @@ http.createServer((request, response) => {
   });
 
   if (q.pathname.includes('documentation')) {
-    filePath = (__dirname + '/documentation.html');
+    filePath = (__dirname + 'public/documentation.html');
   } else {
     filePath = 'index.html';
   }
@@ -28,9 +29,9 @@ http.createServer((request, response) => {
 
     response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write(data);
-    response.end('Welcome to the club!');
+    response.end();
 
   });
 
 }).listen(8080);
-console.log('My test server is running on Port 8080');
+console.log('My test server is running on Port 8080.');
