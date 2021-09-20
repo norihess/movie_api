@@ -1,7 +1,7 @@
 let http = require('http'),
   fs = require('fs'),
   url = require('url'),
-  addr = 'http://localhost:8080/';
+  addr = 'http://localhost:8080';
 
 http.createServer((request, response) => {
   let addr = request.url,
@@ -43,7 +43,12 @@ let express = require('express'),
   // bodyParser = require('body-parser'),
   // methodOverride = require('method-override');
   // uuid = require('uuid');
+  let myLogger = (req, res, next) => {
+    console.log(req.url);
+    next();
+  };
 
+  app.use(myLogger);
 
 let movies = [
   {
