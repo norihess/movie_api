@@ -134,26 +134,23 @@ app.get('/movies/:title', (req, res) => {
 });
 
 // //list ALL directors
-// app.get('/director', (req,res)=>{
-//   let directors = movies.map(movie => ['director']);
-//   res.json(director);
-// });
-app.get("/directors/:Name", (req,res) => {
-  Movies.find({"Director.Name": req.params.Name})
-  .then((movies) => {
-    res.json(movies);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send("Error: " + err);
-  });
-})
-// //get director by name
-// app.get('/movies/:director', (req, res) => {
-//   res.json(movies.find((director) =>
-//     { return movies.director === req.params.director }));
-// });
-// //get director bio
+app.get('/director', (req,res)=>{
+  let directors = movies.map(movie => ['director']);
+  res.json(director);
+});
+
+//get director by name
+app.get("/director/:name", (req, res) => {
+  directors.findOne({ name: req.params.Name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+//get director bio
 // app.get('/movies/:director/[name]', (req, res) => {
 //   res.json(movies.find((director) =>
 //     { return movies.director === req.params.director }));
