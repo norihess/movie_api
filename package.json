@@ -1,7 +1,7 @@
 {
   "name": "movie_api",
   "version": "1.0.0",
-  "description": "",
+  "description": "using html, js, github",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/norihess/movie_api"
+    "url": "git+https://github.com/norihess/movie_api.git"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +28,8 @@
     "lodash": "^4.17.21",
     "ls": "^0.2.1",
     "method-override": "^3.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^7.32.0"
