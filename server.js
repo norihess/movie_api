@@ -1,7 +1,7 @@
 let http = require('http'),
   fs = require('fs'),
   url = require('url'),
-  addr = 'http://localhost:8080';
+  addr = 'http://localhost:8081';
 
 http.createServer((request, response) => {
   let addr = request.url,
@@ -29,9 +29,9 @@ http.createServer((request, response) => {
 
     response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write(data);
-    response.end();
+    response.end('Welcome to the club!');
 
   });
 
-}).listen(8080);
-console.log('My test server is running on Port 8080.');
+}).listen(8081);
+console.log('My test server is running on Port 8081.');
