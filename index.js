@@ -3,19 +3,19 @@ let http = require('http'),
   url = require('url'),
   addr = 'http://localhost:8080/';
 
-  http.createServer((request, response) => {
-  let requestURL = url.parse(request.url, true);
-  if ( requestURL.pathname == '/documentation.html') {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Documentation on the movieclub API.\n');
-  } else {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Welcome to the club!\n');
-  }
+//   http.createServer((request, response) => {
+//   let requestURL = url.parse(request.url, true);
+//   if ( requestURL.pathname == '/documentation.html') {
+//     response.writeHead(200, {'Content-Type': 'text/plain'});
+//     response.end('Documentation on the movieclub API.\n');
+//   } else {
+//     response.writeHead(200, {'Content-Type': 'text/plain'});
+//     response.end('Welcome to the club!\n');
+//   }
+//
+// }).listen(8080);
 
-}).listen(8080);
-
-console.log('My first Node test server is running on Port 8080.');
+// console.log('My first Node test server is running on Port 8080.');
 //
 // }).listen(8080);
 // console.log('My test server is running on Port 8080.');
