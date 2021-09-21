@@ -90,21 +90,21 @@ app.get('/movies', (req, res) => {
 });
 
 //get movie by name
-app.get('/movies/:name', (req,res) => {
-  res.json(movies.find((movie) => {
-    return movie.name === req.params.name}));
-});
+// app.get('/movies/:name', (req,res) => {
+//   res.json(movies.find((movie) => {
+//     return movie.name === req.params.name}));
+// });
 
 // //list of director
-app.get('/director', (req,res)=>{
+app.get('/directors', (req,res)=>{
   let directors = movies.map(movie => ['director']);
   res.json(director);
 });
 //get director by name
-app.get('/director/:name', (req,res) => {
-  res.json(movies.find((director) => {
-    return director.name === req.params.name}));
-});
+// app.get('/directors/:name', (req,res) => {
+//   res.json(movies.find((director) => {
+//     return director.name === req.params.name}));
+// });
 //
 // //list of genre
 app.get('/genre', (req, res)=>{
