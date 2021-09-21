@@ -127,45 +127,51 @@ app.get('/documentation', (req, res) => {
 app.get('/movies', (req, res) => {
   res.json(movies);
 });
-// Gets the data about a single student, by name
-app.get('/movies/:title', (req, res) => {
-  res.json(movies.find((movies) =>
-    { return movies.title === req.params.title }));
+// Gets the data movie title
+app.get('/movies/title', (req, res) => {
+  movies.fineOne({title: req.params.title})
+  .then((movie) => {
+    res.json(movie);
+  })
+  .catch ((err) => {
+    console.error(err);
+    res.status(500).send('There is no movies of this title' err);
+  });
+  // res.json(movies.find((movies) =>
+  //   { return movies.title === req.params.title }));
 });
 
 // //list ALL directors
 app.get('/director', (req,res)=>{
-  let directors = movies.map(movie => ['director']);
+  let directors = movies.director(movie => ['director']);
   res.json(director);
 });
-
-//get director by name
-app.get("/director/:name", (req, res) => {
-  directors.findOne({ name: req.params.Name })
-    .then((director) => {
-      res.json(director);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
+// Gets the director name
+app.get('/director/:info', (req, res) => {
+  directors.fineOne({
+    name: req.params.name,
+    DateOfBirth: req.params.DateOfBirth,
+    DateOfDeath: req.params.DateOfDeath
+  })
+  .then((director) => {
+    res.json(director);
     });
-});
-//get director bio
-// app.get('/movies/:director/[name]', (req, res) => {
-//   res.json(movies.find((director) =>
-//     { return movies.director === req.params.director }));
-// });
+  });
+  // res.json(movies.find((movies) =>
+  //   { return movies.title === req.params.title }));
+
+
 // //list of genre
 app.get('/genre', (req, res)=>{
   let genre = movies.map(movies => ['genre']);
   let uniqueGenre = [...new Set(genre)];
-  res.json(uniqueGenre);
+  res.json(genre);
 });
-//get genres
-app.get('/movies/:genre', (req, res) => {
-  res.json(movies.find((genre) =>
-    { return movies.uniqueGenre === req.params.uniqueGenre }));
-});
+// //get genres
+// app.get('/movies/:genre', (req, res) => {
+//   res.json(movies.find((genre) =>
+//     { return movies.uniqueGenre === req.params.uniqueGenre }));
+// });
 
 app.get('/description', (req,res)=>{
   let descriptions = movies.map (movies => ['description']);
