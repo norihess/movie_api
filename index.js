@@ -3,13 +3,11 @@ let http = require('http'),
   url = require('url'),
   addr = 'http://localhost:8080/';
 
-  const http = require('http');
-
   http.createServer((request, response) => {
   let requestURL = url.parse(request.url, true);
   if ( requestURL.pathname == '/documentation.html') {
     response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Documentation on the bookclub API.\n');
+    response.end('Documentation on the movieclub API.\n');
   } else {
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.end('Welcome to the club!\n');
@@ -92,17 +90,17 @@ app.get('/movies', (req, res) => {
 });
 
 // //list of director
-// app.get('/director', (req,res)=>{
-//   let directors = movies.map(movie => ['director']);
-//   res.json(director);
-// });
+app.get('/director', (req,res)=>{
+  let directors = movies.map(movie => ['director']);
+  res.json(director);
+});
 //
 // //list of genre
-// app.get('/genre', (req, res)=>{
-//   let genre = movies.map(movie => ['genre']);
-//   let uniqueGenre = [...new Set(genre)];
-//   res.json(uniqueGenre);
-// });
+app.get('/genre', (req, res)=>{
+  let genre = movies.map(movie => ['genre']);
+  let uniqueGenre = [...new Set(genre)];
+  res.json(uniqueGenre);
+});
 
 //error handler
 app.use(express.static('public'));
@@ -111,8 +109,8 @@ app.use(express.static('public'));
 //   extended: true
 // }));
 //
-// app.use(bodyParser.json());
-// app.use(methodOverride());
+app.use(bodyParser.json());
+app.use(methodOverride());
 // app.use(uuid());
 
 app.use((err, req, res, next) => {
