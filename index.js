@@ -26,6 +26,7 @@ app.use(methodOverride());
 let movies = [
   {
     Title: 'The Conjuring',
+    imageUrl: 'https://m.imdb.com/title/tt1457767/mediaviewer/rm1035247872/',
     Director: {
       Name: 'Michael Chaves',
       DateOfBirth: 'October 25, 1989',
@@ -39,6 +40,7 @@ let movies = [
 
   {
     Title: 'The Addams Family',
+    imageUrl: 'https://www.imdb.com/title/tt0101272/mediaviewer/rm3500356096/',
     Director: {
       Name: 'Barry Sonnenfeld',
       DateOfBirth: 'April 1, 1953',
@@ -52,6 +54,7 @@ let movies = [
 
   {
     Title: 'Nightmare Before Christmas',
+    imageUrl: 'https://m.imdb.com/title/tt0107688/mediaviewer/rm3080629248/',
     Director:{
       Name: 'Henry Selick',
       DateOfBirth: 'November 30, 1952',
@@ -65,6 +68,7 @@ let movies = [
 
   {
     Title: 'The Heat',
+    imageUrl: 'https://www.imdb.com/title/tt2404463/mediaviewer/rm3180045568/',
     Director:{
       Name:'Paul Feig',
       DateOfBirth: 'September 17, 1962',
@@ -78,6 +82,7 @@ let movies = [
 
   {
     Title: 'Jungle Cruise',
+    imageUrl: 'https://www.imdb.com/title/tt0870154/mediaviewer/rm2522859265/',
     Director: {
       Name:'Jaume Collet-Serra',
       DateOfBirth: 'March 23, 1974',
