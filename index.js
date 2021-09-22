@@ -104,9 +104,9 @@ app.get('/movies', (req, res) => {
   res.json(movies);
 });
 //GETS movie by title
-app.get('/movies/:Title' (req, res) =>{
-  res.json(movies.find((movies) =>
-    { return movies.title === req.params.title }));
+app.get('/movies/:Title', (req, res) =>{
+  res.json(movies.find((movies) => {
+    return movies.title === req.params.title }))
   .catch ((err) => {
     console.error(err);
     res.status(500).send('There is no movies of this title');
@@ -120,6 +120,7 @@ app.get('/movies/:Title' (req, res) =>{
 //   res.json(director);
 // });
 app.get('/directors', (req, res) => {
+  let Directors = movies.map (movies => ['directors']);
   Directors.find().populate('Movie')
     .then((directors) => {
       res.status(201).json(directors);
@@ -150,8 +151,8 @@ app.get("/directors/:Name", (req, res) => {
 // get all genres
 app.get('/genres', (req, res) => {
   Genres.find()
-  .then((genre) => {
-    res.status(201).json(genre);
+  .then((genres) => {
+    res.status(201).json(genres);
   })
   .catch((err) => {
     console.error(err);
@@ -178,6 +179,7 @@ app.get('/description', (req,res)=>{
 
 //POST
 //New Users to register
+let { check, validationResult } = require('express-validator');
 app.post('/users', [
   check('Name', 'Username is required').isLength({min: 5}),
   check('Name', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -239,7 +241,7 @@ app.put('/users/:Name', (req, res) => {
 
 //DELETE
 // Delete a user by username
-app.delete('/users/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.delete('/users/:Name', (req, res) => {
   Users.findOneAndRemove({Name: req.params.Name})
   .then((user) => {
     if(!user) {
@@ -256,7 +258,7 @@ app.delete('/users/:Name', passport.authenticate('jwt', {session: false}), (req,
 
 //ADD
 // Add a movie to the favorite list of an user
-app.post('/users/:Name/movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.post('/users/:Name/movies/:MovieID', (req, res) => {
   Users.findOneAndUpdate({Name: req.params.Name}, {
     $push: {FavoriteMovies: req.params.MovieID}
   },
