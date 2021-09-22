@@ -143,8 +143,8 @@ app.get('/movies/title', (req, res) => {
 
 // //list ALL directors
 app.get('/director', (req,res)=>{
-  let directors = movies.director(movie => ['director']);
-  res.json(director);
+  let directors = movies.directors(movie => ['directors']);
+  res.json(directors);
 });
 // Gets the director name
 app.get('/director/:info', (req, res) => {
