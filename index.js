@@ -90,14 +90,6 @@ let movies = [
   }
 ];
 
-//functions
-// function movies(title, director, genre, description){
-//   movie.title = title;
-//   movie.director= director;
-//   movie.genre = genre;
-//   movie. description = description;
-// }
-
 // GET requests
 app.get('/', (req, res) => {
   res.send('Welcome to the club!');
@@ -112,7 +104,7 @@ app.get('/movies', (req, res) => {
   res.json(movies);
 });
 //GETS movie by title
-app.get('/movies/:title' (req, res) =>{
+app.get('/movies/:Title' (req, res) =>{
   res.json(movies.find((movies) =>
     { return movies.title === req.params.title }));
   .catch ((err) => {
@@ -127,7 +119,7 @@ app.get('/movies/:title' (req, res) =>{
 //   // let directors = movies.map(movies => ['directors']);
 //   res.json(director);
 // });
-app.get("/directors", (req, res) => {
+app.get('/directors', (req, res) => {
   Directors.find().populate('Movie')
     .then((directors) => {
       res.status(201).json(directors);
@@ -137,7 +129,7 @@ app.get("/directors", (req, res) => {
       res.status(500).send("Error: " + err);
     });
 });
-// Gets the director name
+// Gets director by name
 app.get("/directors/:Name", (req, res) => {
   Directors.findOne({ Name: req.params.Name })
     .then((director) => {
@@ -155,7 +147,7 @@ app.get("/directors/:Name", (req, res) => {
 //   // let uniqueGenre = [...new Set(genre)];
 //   res.json(genre);
 // });
-get all genres
+// get all genres
 app.get('/genres', (req, res) => {
   Genres.find()
   .then((genre) => {
@@ -168,8 +160,8 @@ app.get('/genres', (req, res) => {
 })
 
 //get genre by name
-app.get("/genres/:Name", (req, res) => {
-  Genres.findOne({ Name: req.params.Name })
+app.get("/genres/:Type", (req, res) => {
+  Genres.findOne({ Type: req.params.Type })
     .then((genre) => {
       res.json(genre);
     })
@@ -184,15 +176,121 @@ app.get('/description', (req,res)=>{
   res.json(description);
 });
 
+//POST
+//New Users to register
+app.post('/users', [
+  check('Name', 'Username is required').isLength({min: 5}),
+  check('Name', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Mail', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: erros.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Name: req.body.Name})
+  .then((user) => {
+    if (user) {
+      return res.status(400).send(req.body.Name + 'already exists');
+    } else {
+      Users.create({
+        Name: req.body.Name,
+        Password: hashedPassword,
+        Mail: req.body.Mail,
+        Birthday: req.body.Birthday
+      }).then((user) => {res.status(201).json(user)})
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      })
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+    res.satus(500).send('Error: ' + error);
+  });
+});
+
+//PUT/UPDATE
+// Update user info by username
+app.put('/users/:Name', (req, res) => {
+  Users.findOneAndUpdate({Name: req.params.Name}, {
+    $set:
+    {
+      Name: req.body.Name,
+      Password: req.body.Password,
+      Mail: req.body.Mail,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true },
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
+
+//DELETE
+// Delete a user by username
+app.delete('/users/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Users.findOneAndRemove({Name: req.params.Name})
+  .then((user) => {
+    if(!user) {
+      res.status(400).send(req.params.Name + ' was not found.');
+    } else {
+      res.status(200).send(req.params.Name + ' was deleted.');
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+//ADD
+// Add a movie to the favorite list of an user
+app.post('/users/:Name/movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Users.findOneAndUpdate({Name: req.params.Name}, {
+    $push: {FavoriteMovies: req.params.MovieID}
+  },
+  {new: true},
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
+
+//DELETE
+// Delete a movie from the favorite list of an user
+app.delete('/users/:Name/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({Name: req.params.Name}, {
+    $pull: {FavoriteMovies: req.params.MovieID}
+  },
+  {new: true},
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
+
+
 //error handler
 app.use(express.static('public'));
-
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }));
-//
-
-// app.use(uuid());
 
 app.use((err, req, res, next) => {
   console.log (err.stack);
