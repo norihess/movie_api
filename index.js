@@ -47,10 +47,7 @@ let movies = [
       DateOfBirth: 'October 25, 1989',
       DateOfDeath: 'Alive at age 32.'
     },
-    genre: {
-      'Horror',
-      'Thriller'
-    },
+    genre:'Horror, Thriller',
     description:'The Conjuring is a 2013 supernatural horror film inspired by the true-life story of the Perron family, who claimed they "lived among the dead" in the 1970s as spirits both friendly and sinister inhabited their Rhode Island farmhouse.'
   },
 
@@ -61,10 +58,7 @@ let movies = [
       DateOfBirth: 'April 1, 1953',
       DateOfDeath: 'Alive at age 68.'
     },
-    genre: {
-      'Horror',
-      'Dark Comedy'
-    },
+    genre: 'Horror, Dark Comedy',
     description:'Addams Family characters include Gomez, Morticia, Uncle Fester, Lurch, Grandmama, Wednesday and Pugsley. The Addamses are a satirical inversion of the ideal American family; an eccentric, wealthy clan who delight in the macabre and are unaware that people find them bizarre or frightening.'
   },
 
@@ -75,10 +69,7 @@ let movies = [
       DateOfBirth: 'November 30, 1952',
       DateOfDeath: 'Alive at age 68.'
     },
-    genre:{
-      'Musical',
-      'Animation'
-    },
+    genre: 'Musical, Animation',
     description:'It tells the story of Jack Skellington, the King of "Halloween Town" who stumbles upon "Christmas Town" and becomes obsessed with celebrating the holiday. Danny Elfman wrote the songs and score, and provided the singing voice of Jack.'
   },
 
@@ -89,10 +80,7 @@ let movies = [
       DateOfBirth: 'September 17, 1962',
       DateOfDeath: 'Alive at age 59.'
     },
-    genre:{
-      'Comedy',
-      'Action'
-    },
+    genre: 'Comedy, Action',
     description:'FBI Special Agent Sarah Ashburn (Sandra Bullock) is a methodical investigator with a long-standing reputation for excellence -- and arrogance. In contrast, foul-mouthed, hot-tempered detective Shannon Mullins (Melissa McCarthy) goes with her gut instincts and street smarts to remove criminals from the streets of Boston. Sparks fly when these polar opposites have to work together to capture a drug lord, but in the process, they become the last thing anyone expected -- buddies.'
   },
 
@@ -103,10 +91,7 @@ let movies = [
       DateOfBirth: 'March 23, 1974',
       DateOfDeath: 'Alive at age 47.'
     },
-    genre:{
-      'Comedy',
-      'Action'
-    },
+    genre:'Comedy, Action',
     description:'Dr. Lily Houghton enlists the aid of wisecracking skipper Frank Wolff to take her down the Amazon in his ramshackle boat. Together, they search for an ancient tree that holds the power to heal -- a discovery that will change the future of medicine.'
   },
 ];
@@ -125,53 +110,79 @@ app.get('/documentation', (req, res) => {
 
 //gets ALL movies
 app.get('/movies', (req, res) => {
-  res.json(movies);
+  Movies.find()
+  .then((movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ', err);
+  });
 });
-// Gets the data movie title
-app.get('/movies/title', (req, res) => {
-  movies.fineOne({title: req.params.title})
+
+// Get data about a certain movie
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({Title: req.params.Title})
   .then((movie) => {
     res.json(movie);
   })
-  .catch ((err) => {
+  .catch((err) => {
     console.error(err);
-    res.status(500).send('There is no movies of this title' err);
+    res.status(500).send('Error: ', err);
   });
-  // res.json(movies.find((movies) =>
-  //   { return movies.title === req.params.title }));
 });
 
-// //list ALL directors
-app.get('/director', (req,res)=>{
-  let directors = movies.directors(movie => ['directors']);
-  res.json(directors);
-});
-// Gets the director name
-app.get('/director/:info', (req, res) => {
-  directors.fineOne({
-    name: req.params.name,
-    DateOfBirth: req.params.DateOfBirth,
-    DateOfDeath: req.params.DateOfDeath
-  })
-  .then((director) => {
-    res.json(director);
+// // //list ALL directors
+// app.get('/director', (req,res)=>{
+//   let directors = movies.directors(movie => ['directors']);
+//   res.json(directors);
+// });
+// // Gets the director info
+// app.get('/director/:Info', (req, res) => {
+//   directors.fineOne({
+//     name: req.params.name,
+//     DateOfBirth: req.params.DateOfBirth,
+//     DateOfDeath: req.params.DateOfDeath
+//   })
+//   .then((director) => {
+//     res.json(director);
+//     });
+//   });
+// gets list of All directors
+  app.get('/directors', (req, res) => {
+    Directors.find()
+    .then((directors) => {
+      res.status(201).json(directors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ', err);
     });
   });
-  // res.json(movies.find((movies) =>
-  //   { return movies.title === req.params.title }));
 
-
+  // Get data about a certain movie
+  app.get('/movies/:Title', (req, res) => {
+    Movies.findOne({Title: req.params.Title})
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ', err);
+    });
+  });
 // //list of genre
 app.get('/genre', (req, res)=>{
   let genre = movies.map(movies => ['genre']);
-  let uniqueGenre = [...new Set(genre)];
+  // let uniqueGenre = [...new Set(genre)];
   res.json(genre);
 });
 // //get genres
-// app.get('/movies/:genre', (req, res) => {
-//   res.json(movies.find((genre) =>
-//     { return movies.uniqueGenre === req.params.uniqueGenre }));
-// });
+app.get('/movies/:genre', (req, res) => {
+  g
+  res.json(movies.find((genre) =>
+    { return movies.uniqueGenre === req.params.uniqueGenre }));
+});
 
 app.get('/description', (req,res)=>{
   let descriptions = movies.map (movies => ['description']);
