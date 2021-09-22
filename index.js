@@ -112,12 +112,10 @@ app.get('/movies', (req, res) => {
   res.json(movies);
 });
 //GETS movie by title
-app.get('/movie/titles' (req, res) =>{
-  movies.findOne({title: req.params.title})
-  .then((movie) =>{
-    res.json(movie);
-    return movies.title === req.params.title
-  }).catch ((err) => {
+app.get('/movies/:title' (req, res) =>{
+  res.json(movies.find((movies) =>
+    { return movies.title === req.params.title }));
+  .catch ((err) => {
     console.error(err);
     res.status(500).send('There is no movies of this title');
   });
