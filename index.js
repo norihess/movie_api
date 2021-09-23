@@ -174,18 +174,18 @@ app.get('/directors', (req, res) => {
 });
 
 // Gets director by name
-app.get('/directors/:name', (req, res) => {
+app.get('/movies/directors/:name', (req, res) => {
 res.send('Successful GET request returning data on single director' + req.params.name);
 });
 
 // get all genres
-app.get('/genres', (req, res) => {
+app.get('/movies/genres', (req, res) => {
   res.json(genres);
 });
 
 //get genre by name
-app.get('/genres/:type', (req, res) => {
-res.send('Successful GET request returning data on movie genre' + req.params.type);
+app.get('/movies/genres/:genre', (req, res) => {
+res.send('Successful GET request returning data on movie genre' + req.params.genre);
 });
 
 //POST
