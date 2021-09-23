@@ -95,61 +95,61 @@ let movies = [
   }
 ];
 //directors
-let directors = [
-  {
-    Name: 'Michael Chaves',
-    DateOfBirth: 'October 25, 1989',
-    DateOfDeath: 'Alive at age 32.'
-  },
-  {
-    Name: 'Barry Sonnenfeld',
-    DateOfBirth: 'April 1, 1953',
-    DateOfDeath: 'Alive at age 68.'
-  },
-  {
-    Name: 'Henry Selick',
-    DateOfBirth: 'November 30, 1952',
-    DateOfDeath: 'Alive at age 68.'
-  },
-  {
-    Name:'Paul Feig',
-    DateOfBirth: 'September 17, 1962',
-    DateOfDeath: 'Alive at age 59.'
-  },
-  {
-    Name:'Jaume Collet-Serra',
-    DateOfBirth: 'March 23, 1974',
-    DateOfDeath: 'Alive at age 47.'
-  }
-];
-//genre and description
-let genres = [
-  //conjuring
-  {
-    Type:'Horror, Thriller',
-    Description:'The Conjuring is a 2013 supernatural horror film inspired by the true-life story of the Perron family, who claimed they "lived among the dead" in the 1970s as spirits both friendly and sinister inhabited their Rhode Island farmhouse.'
-  },
-  //Addams Fam
-  {
-    Type: 'Horror, Dark Comedy',
-    Description:'Addams Family characters include Gomez, Morticia, Uncle Fester, Lurch, Grandmama, Wednesday and Pugsley. The Addamses are a satirical inversion of the ideal American family; an eccentric, wealthy clan who delight in the macabre and are unaware that people find them bizarre or frightening.'
-  },
-  //Nightmare
-  {
-    Type: 'Musical, Animation',
-    Description:'It tells the story of Jack Skellington, the King of "Halloween Town" who stumbles upon "Christmas Town" and becomes obsessed with celebrating the holiday. Danny Elfman wrote the songs and score, and provided the singing voice of Jack.'
-  },
-  //the Heat
-  {
-    Type: 'Comedy, Action',
-    Description:'FBI Special Agent Sarah Ashburn (Sandra Bullock) is a methodical investigator with a long-standing reputation for excellence -- and arrogance. In contrast, foul-mouthed, hot-tempered detective Shannon Mullins (Melissa McCarthy) goes with her gut instincts and street smarts to remove criminals from the streets of Boston. Sparks fly when these polar opposites have to work together to capture a drug lord, but in the process, they become the last thing anyone expected -- buddies.'
-  },
-  //Jungle
-  {
-    Type: 'Comedy, Action',
-    Description:'Dr. Lily Houghton enlists the aid of wisecracking skipper Frank Wolff to take her down the Amazon in his ramshackle boat. Together, they search for an ancient tree that holds the power to heal -- a discovery that will change the future of medicine.'
-  }
-];
+// let directors = [
+//   {
+//     Name: 'Michael Chaves',
+//     DateOfBirth: 'October 25, 1989',
+//     DateOfDeath: 'Alive at age 32.'
+//   },
+//   {
+//     Name: 'Barry Sonnenfeld',
+//     DateOfBirth: 'April 1, 1953',
+//     DateOfDeath: 'Alive at age 68.'
+//   },
+//   {
+//     Name: 'Henry Selick',
+//     DateOfBirth: 'November 30, 1952',
+//     DateOfDeath: 'Alive at age 68.'
+//   },
+//   {
+//     Name:'Paul Feig',
+//     DateOfBirth: 'September 17, 1962',
+//     DateOfDeath: 'Alive at age 59.'
+//   },
+//   {
+//     Name:'Jaume Collet-Serra',
+//     DateOfBirth: 'March 23, 1974',
+//     DateOfDeath: 'Alive at age 47.'
+//   }
+// ];
+// //genre and description
+// let genres = [
+//   //conjuring
+//   {
+//     Type:'Horror, Thriller',
+//     Description:'The Conjuring is a 2013 supernatural horror film inspired by the true-life story of the Perron family, who claimed they "lived among the dead" in the 1970s as spirits both friendly and sinister inhabited their Rhode Island farmhouse.'
+//   },
+//   //Addams Fam
+//   {
+//     Type: 'Horror, Dark Comedy',
+//     Description:'Addams Family characters include Gomez, Morticia, Uncle Fester, Lurch, Grandmama, Wednesday and Pugsley. The Addamses are a satirical inversion of the ideal American family; an eccentric, wealthy clan who delight in the macabre and are unaware that people find them bizarre or frightening.'
+//   },
+//   //Nightmare
+//   {
+//     Type: 'Musical, Animation',
+//     Description:'It tells the story of Jack Skellington, the King of "Halloween Town" who stumbles upon "Christmas Town" and becomes obsessed with celebrating the holiday. Danny Elfman wrote the songs and score, and provided the singing voice of Jack.'
+//   },
+//   //the Heat
+//   {
+//     Type: 'Comedy, Action',
+//     Description:'FBI Special Agent Sarah Ashburn (Sandra Bullock) is a methodical investigator with a long-standing reputation for excellence -- and arrogance. In contrast, foul-mouthed, hot-tempered detective Shannon Mullins (Melissa McCarthy) goes with her gut instincts and street smarts to remove criminals from the streets of Boston. Sparks fly when these polar opposites have to work together to capture a drug lord, but in the process, they become the last thing anyone expected -- buddies.'
+//   },
+//   //Jungle
+//   {
+//     Type: 'Comedy, Action',
+//     Description:'Dr. Lily Houghton enlists the aid of wisecracking skipper Frank Wolff to take her down the Amazon in his ramshackle boat. Together, they search for an ancient tree that holds the power to heal -- a discovery that will change the future of medicine.'
+//   }
+// ];
 // GET requests
 app.get('/', (req, res) => {
   res.send('Welcome to the club!');
@@ -184,8 +184,8 @@ app.get('/movies/genres', (req, res) => {
 });
 
 //get genre by name
-app.get('/genres/:Type', (_req, res) => {
-res.send('Successful GET request returning data on movie genre' + req.params.type);
+app.get('/movies/genres/:genre', (_req, res) => {
+res.send('Successful GET request returning data on movie genre' + req.params.genre);
 });
 
 //POST
