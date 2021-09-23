@@ -163,7 +163,7 @@ app.get('/movies', (req, res) => {
   res.json(movies);
 });
 //GETS movie by title
-app.get('/movies/:Title', (req, res) =>{
+app.get('/movies/:Title',passport.authenticate('jwt', { session: false }), (req, res) =>{
   res.json(movies.find((movies) => {
     return movies.title === req.params.title
   })).catch ((err) => {
@@ -190,16 +190,23 @@ app.get('/directors', (req, res) => {
 });
 
 // Gets director by name
-app.get("/directors/:Name", (req, res) => {
-  let directors = []; //define empty array
-  for (let i = 0; i < director.length; i++) {
-    let directorName = director[i].name
-    directors.push(directorName);
-    }
-    directors.catch((err) =>  {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-     });
+// app.get("/directors/:Name", (req, res) => {
+//   let directors = []; //define empty array
+//   for (let i = 0; i < director.length; i++) {
+//     let directorName = director[i].name
+//     directors.push(directorName);
+//     }
+//     directors.catch((err) =>  {
+//       console.error(err);
+//       res.status(500).send("Error: " + err);
+//      });
+// });
+
+app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Movies.findOne({ 'Director.Name': req.params.Name })
+  .then((movie) => { res.status(201).json(movie.Director.Name + '. ' + movie.Director.Bio); })
+  .catch((err) => { console.error(err); res.status(500).send('Error: ' + err);
+  });
 });
 
 // get all genres
@@ -215,7 +222,7 @@ app.get('/genres', (req, res) => {
   });
 
 //get genre by name
-app.get("/genres/:Type", (req, res) => {
+app.get("/genres/:Type", passport.authenticate('jwt', { session: false }), (req, res) => {
   let genres = []; //define empty array
   for (let i = 0; i < genres.length; i++) {
     let genreType = genres[i].type + genres[i].description
