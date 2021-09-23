@@ -160,21 +160,21 @@ app.get('/documentation', (req, res) => {
 });
 
 //GETS ALL movies
-app.get('/movies', (_req, res) => {
+app.get('/movies', (req, res) => {
   res.json(movies);
 });
 //GETS movie by title
-app.get('/movies/:Title', (_req, res) =>{
-  res.send ('Successful GET request returning data on single movie' + req.params.title');
+app.get('/movies/:Title', (req, res) =>{
+  res.send ('Successful GET request returning data on single movie' + req.params.title);
 });
 
 //GETS ALL directors
-app.get('/movies/directors', (_req, res) => {
+app.get('/movies/directors', (req, res) => {
     res.json(directors);
 });
 
 // Gets director by name
-app.get('/movies/directors/:name', (_req, res) => {
+app.get('/movies/directors/:name', (req, res) => {
 res.send('Successful GET request returning data on single director' + req.params.name);
 });
 
@@ -184,33 +184,33 @@ app.get('/movies/genres', (req, res) => {
 });
 
 //get genre by name
-app.get('/movies/genres/:genre', (_req, res) => {
+app.get('/movies/genres/:genre', (req, res) => {
 res.send('Successful GET request returning data on movie genre' + req.params.genre);
 });
 
 //POST
 //Allow users to Add Users to register
-app.post('/users', (_req, res) => {
+app.post('/users', (req, res) => {
 res.send('Successful POST request registering new user');
 });
 
 //Allow users to add a movie to their list of favorites
-app.post('/users/:username/favourites/:title', (_req, res) => {
+app.post('/users/:username/favourites/:title', (req, res) => {
 res.send('Successful POST request adding movie by title' + req.params.title + 'to list of favourites' + req.params.username); });
 
 //PUT
 //Allow users to update their user info (username)
-app.put('/users/:username', (_req, res) => {
+app.put('/users/:username', (req, res) => {
 res.send('Successful PUT request updating username' + req.params.username);
 });
 
 //DELETE
 //Allow users to remove a movie from their list of favorites
-app.delete('/users/:username/favourites/:title', (_req, res) => {
+app.delete('/users/:username/favourites/:title', (req, res) => {
 res.send('Successful DELETE request removing movie by title' + req.params.title + 'from list of favourites' + req.params.username); });
 
 //Allow existing users to deregister
-app.delete('/users/:username', (_req, res) => {
+app.delete('/users/:username', (req, res) => {
 res.send('Successful DELETE request removing user: ' + req.params.username + ' from database');
 });
 
