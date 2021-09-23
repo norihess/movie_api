@@ -184,8 +184,8 @@ app.get('/movies/genres', (req, res) => {
 });
 
 //get genre by name
-app.get('/movies/genres/:genre', (_req, res) => {
-res.send('Successful GET request returning data on movie genre' + req.params.genre);
+app.get('/genres/:Type', (_req, res) => {
+res.send('Successful GET request returning data on movie genre' + req.params.type);
 });
 
 //POST
