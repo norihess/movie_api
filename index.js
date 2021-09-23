@@ -166,6 +166,7 @@ app.get('/movies', (req, res) => {
 //GETS movie by title
 app.get('/movies/:Title', (req, res) =>{
   res.send ('Successful GET request returning data on single movie' + req.params.title);
+
 });
 
 //GETS ALL directors
