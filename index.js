@@ -26,7 +26,7 @@ app.use(methodOverride());
 let movies = [
   {
     Title: 'The Conjuring',
-    imageUrl: 'https://m.imdb.com/title/tt1457767/mediaviewer/rm1035247872/',
+    imageUrl: 'https://c8.alamy.com/comp/DT9FMB/movie-poster-the-conjuring-2013-DT9FMB.jpg',
     Director: {
       Name: 'Michael Chaves',
       DateOfBirth: 'October 25, 1989',
@@ -41,7 +41,7 @@ let movies = [
 
   {
     Title: 'The Addams Family',
-    imageUrl: 'https://www.imdb.com/title/tt0101272/mediaviewer/rm3500356096/',
+    imageUrl: 'https://prodimage.images-bn.com/pimages/0032429329738_p0_v1_s550x406.jpg',
     Director: {
       Name: 'Barry Sonnenfeld',
       DateOfBirth: 'April 1, 1953',
@@ -56,7 +56,7 @@ let movies = [
 
   {
     Title: 'Nightmare Before Christmas',
-    imageUrl: 'https://m.imdb.com/title/tt0107688/mediaviewer/rm3080629248/',
+    imageUrl: 'https://www.udiscovermusic.com/wp-content/uploads/2018/09/The-Nightmare-Before-Christmas-album-cover-web-optimised-820.jpg',
     Director:{
       Name: 'Henry Selick',
       DateOfBirth: 'November 30, 1952',
@@ -71,7 +71,7 @@ let movies = [
 
   {
     Title: 'The Heat',
-    imageUrl: 'https://www.imdb.com/title/tt2404463/mediaviewer/rm3180045568/',
+    imageUrl: 'https://www.newdvdreleasedates.com/images/posters/large/the-heat-2013-03.jpg',
     Director:{
       Name:'Paul Feig',
       DateOfBirth: 'September 17, 1962',
@@ -86,7 +86,7 @@ let movies = [
 
   {
     Title: 'Jungle Cruise',
-    imageUrl: 'https://www.imdb.com/title/tt0870154/mediaviewer/rm2522859265/',
+    imageUrl: 'https://m.media-amazon.com/images/I/91cOSkwoAFL._AC_SY679_.jpg',
     Director: {
       Name:'Jaume Collet-Serra',
       DateOfBirth: 'March 23, 1974',
