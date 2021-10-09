@@ -7,6 +7,59 @@
   </head>
   <body>
   <h1>documentation Page</h1>
-  <p>this is the content of the documentation page.</p>
+  <table><thead>
+         <tr>
+             <th>request</th>
+             <th>url</th>
+             <th>response</th>
+         </tr>
+     </thead>
+   <tbody>
+       <tr>
+           <td>GET request</td>
+           <td>/movies</td>
+           <td>return array of all movies</td>
+       </tr>
+       <tr>
+           <td>GET request</td>
+           <td>/movies/:movieTitle</td>
+           <td>return movie by it's title</td>
+       </tr>
+       <tr>
+           <td>GET request</td>
+           <td>/genres/:genre</td>
+           <td>return info about a specific movie genre</td>
+       </tr>
+       <tr>
+           <td>GET request</td>
+           <td>/directors/:directorName</td>
+           <td>return info about movie directors</td>
+       </tr>
+       <tr>
+           <td>POST request</td>
+           <td>/register</td>
+           <td>register to our system</td>
+       </tr>
+       <tr>
+           <td>PUT request</td>
+           <td>/users/:ID/:infoToUpdate/:newValue</td>
+           <td>Update the persons username info</td>
+       </tr>
+       <tr>
+           <td>POST request</td>
+           <td>/users/:ID/favorites/:newFavorite</td>
+           <td>Add a movie to a specific user's profile</td>
+       </tr>
+       <tr>
+           <td>DELETE request</td>
+           <td>/users/:id/unregister</td>
+           <td>Unregister a user from the database</td>
+       </tr>
+       <tr>
+           <td>DELETE request</td>
+           <td>/users/:ID/favorites/:deleteFavorite</td>
+           <td>Delete a favorite movie from the users favorites</td>
+       </tr>
+   </tbody></table>
   </body>
 </html>
