@@ -22,10 +22,11 @@ let Models = require('./models.js');
 
 let Movies = Models.Movie;
 let Users = Models.User;
+let Genre = Models.Genre;
+let Director = Models.Director;
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-
+mongoose.connect('mongodb://localhost:27017/myFlixDB',
+{ useNewUrlParser: true, useUnifiedTopology: true });
 
 //downloaded packages
 app.use(morgan('common'));
@@ -207,45 +208,75 @@ app.get('/documentation', (req, res) => {
 
 //GETS ALL movies
 app.get('/movies', (req, res) => {
-  res.json(movies);
-});
+   Movies.find()
+     .then((movies) => {
+       res.status(201).json(movies);
+     })
+     .catch((err) => {
+       console.error(err);
+       res.status(500).send('Error: ' + err);
+     });
+ });
+
 //GETS movie by title
-app.get('/movies/:Title', (req, res) =>{
-  res.send ('Successful GET request returning data on single movie' + req.params.title);
-
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({Title: req.params.Title})
+  .then((movie) => {
+    res.json(movie);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ', err);
+  });
 });
-
 //GETS ALL directors
-app.get('/directors', (req, res) => {
-    res.json(directors);
+app.get('directors', (req, res)=> {
+  Movies.find()
+    .then((director) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: '+ err);
+    });
 });
-
 // Gets director by name
-app.get('/movies/directors/:name', (req, res) => {
-res.send('Successful GET request returning data on single director' + req.params.name);
-});
+app.get('/director/:Name', (req, res) => {
+    Movies.findOne({ 'Director.Name': req.params.Name})
+    .then((director) => {
+      res.json(director.Director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+  });
 
 // get all genres
-app.get('/movies/genres', (req, res) => {
-  res.json(genres);
-});
+app.get('/genre', (req, res) => {
+      Genre.find()
+        .then(genre => {
+          res.status(201).json(genre);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send('Error: ' + err);
+        });
+    });
 
 //get genre by name
-app.get('/movies/genres/:genre', (req, res) => {
-res.send('Successful GET request returning data on movie genre' + req.params.genre);
-});
+app.get('/genre/:Name', (req, res) => {
+    Movies.findOne({ 'Genre.Name': req.params.Name})
+    .then((genre) => {
+      res.json(genre.Genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+  });
 
 //POST
-//Allow users to Add Users to register
-app.post('/users', (req, res) => {
-res.send('Successful POST request registering new user');
-});
-
-//Allow users to add a movie to their list of favorites
-app.post('/users/:username/favourites/:title', (req, res) => {
-res.send('Successful POST request adding movie by title' + req.params.title + 'to list of favourites' + req.params.username); });
-
-
 // GET all users
 app.get('/users', (req, res) => {
   Users.find()
@@ -349,21 +380,21 @@ app.delete('/users/:Username', (req, res) => {
     });
 });
 
-//PUT
-//Allow users to update their user info (username)
-app.put('/users/:username', (req, res) => {
-res.send('Successful PUT request updating username' + req.params.username);
-});
-
-//DELETE
-//Allow users to remove a movie from their list of favorites
-app.delete('/users/:username/favourites/:title', (req, res) => {
-res.send('Successful DELETE request removing movie by title' + req.params.title + 'from list of favourites' + req.params.username); });
-
-//Allow existing users to deregister
-app.delete('/users/:username', (req, res) => {
-res.send('Successful DELETE request removing user: ' + req.params.username + ' from database');
-});
+// //PUT
+// //Allow users to update their user info (username)
+// app.put('/users/:username', (req, res) => {
+// res.send('Successful PUT request updating username' + req.params.username);
+// });
+//
+// //DELETE
+// //Allow users to remove a movie from their list of favorites
+// app.delete('/users/:username/favourites/:title', (req, res) => {
+// res.send('Successful DELETE request removing movie by title' + req.params.title + 'from list of favourites' + req.params.username); });
+//
+// //Allow existing users to deregister
+// app.delete('/users/:username', (req, res) => {
+// res.send('Successful DELETE request removing user: ' + req.params.username + ' from database');
+// });
 
 //error handler
 app.use(express.static('public'));
