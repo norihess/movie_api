@@ -1,8 +1,8 @@
 let http = require('http'),
   fs = require('fs'),
   url = require('url'),
-  addr = 'http://localhost:8080/',
-  uuid = require('uuid');
+  addr = 'http://localhost:8080/';
+  // uuid = require('uuid');
 
 //require()
 let express = require('express'),
