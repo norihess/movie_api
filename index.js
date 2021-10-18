@@ -9,7 +9,7 @@ let express = require('express'),
   app = express(),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  methodOverride = require('method-override'),
+  methodOverride = require('method-override');
   // uuid = require('uuid');
 //   myLogger = (req, res, next) => {
 //   console.log(req.url);
