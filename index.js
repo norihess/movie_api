@@ -11,10 +11,10 @@ let express = require('express'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
   // uuid = require('uuid');
-  myLogger = (req, res, next) => {
-  console.log(req.url);
-  next();
-};
+//   myLogger = (req, res, next) => {
+//   console.log(req.url);
+//   next();
+// };
 
 //mongoose
 let mongoose = require('mongoose');
@@ -32,7 +32,7 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB',
 
 //downloaded packages
 app.use(morgan('common'));
-app.use(myLogger);
+// app.use(myLogger);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(methodOverride());
