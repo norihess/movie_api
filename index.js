@@ -232,7 +232,7 @@ app.get('/movies/:Title', (req, res) => {
   });
 });
 //GETS ALL directors
-app.get('directors', (req, res)=> {
+app.get('/director', (req, res)=> {
   Movies.find()
     .then((director) => {
       res.status(201).json(movies);
