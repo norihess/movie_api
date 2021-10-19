@@ -24,9 +24,9 @@ let Genre = Models.Genre;
 let Director = Models.Director;
 
 //adding text-encoder code
-import * as encoding from 'text-encoding';
-import {encode as btoa} from 'base-64';
-var encoder = new encoding.TextEncoder();
+// import * as encoding from 'text-encoding';
+// import {encode as btoa} from 'base-64';
+// var encoder = new encoding.TextEncoder();
 
 //connecting database with connction URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
