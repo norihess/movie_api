@@ -9,12 +9,12 @@ let express = require('express'),
   app = express(),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  methodOverride = require('method-override'),
-  uuid = require('uuid');
-//   myLogger = (req, res, next) => {
-  // console.log(req.url);
-//   next();
-// };
+  methodOverride = require('method-override');
+
+  myLogger = (req, res, next) => {
+  console.log(req.url);
+  next();
+};
 
 //mongoose
 let mongoose = require('mongoose');
