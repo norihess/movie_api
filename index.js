@@ -1,28 +1,23 @@
 // let cors = require('cors');
-
+//require()
 let http = require('http'),
   fs = require('fs'),
   url = require('url'),
-  addr = 'http://localhost:8080/';
+  addr = 'http://localhost:8080/',
   // uuid = require('uuid');
-
-//require()
-let express = require('express'),
+  express = require('express'),
   app = express(),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
 
 // app.use(cors());
-//   myLogger = (req, res, next) => {
-//   console.log(req.url);
-//   next();
-// };
 
 //mongoose
 let mongoose = require('mongoose');
 let Models = require('./models.js');
 
+//importing models
 let Movies = Models.Movie;
 let Users = Models.User;
 let Genre = Models.Genre;
@@ -44,6 +39,7 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB',
 // db.once('open', function() {
 //   // we're connected!
 // });
+
 //downloaded packages
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
