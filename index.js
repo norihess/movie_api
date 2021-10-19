@@ -11,10 +11,10 @@ let express = require('express'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
 
-  myLogger = (req, res, next) => {
-  console.log(req.url);
-  next();
-};
+//   myLogger = (req, res, next) => {
+//   console.log(req.url);
+//   next();
+// };
 
 //mongoose
 let mongoose = require('mongoose');
