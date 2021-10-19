@@ -1,8 +1,10 @@
+let cors = require('cors');
+
 let http = require('http'),
   fs = require('fs'),
   url = require('url'),
   addr = 'http://localhost:8080/';
-  uuid = require('uuid');
+  // uuid = require('uuid');
 
 //require()
 let express = require('express'),
@@ -11,6 +13,7 @@ let express = require('express'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
 
+app.use(cors());
 //   myLogger = (req, res, next) => {
 //   console.log(req.url);
 //   next();
@@ -26,25 +29,34 @@ let Genre = Models.Genre;
 let Director = Models.Director;
 
 //adding text-encoder code
-import * as encoding from 'text-encoding';
-import {encode as btoa} from 'base-64';
-var encoder = new encoding.TextEncoder();
+// import * as encoding from 'text-encoding';
+// import {encode as btoa} from 'base-64';
+// var encoder = new encoding.TextEncoder();
 
 //connecting database with connction URI
-mongoose.connect('mongodb://localhost:27017/myFlixDB',
-{ useNewUrlParser: true, useUnifiedTopology: true });
-
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-});
+// mongoose.connect('mongodb://localhost:27017/myFlixDB',
+// { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect( "mongodb+srv://myFlixAppAdmin:AdminFlixpassword@my-flix-application.mcflq.mongodb.net/myFlixDB?retryWrites=true&w=majority",
+  { useNewUrlParser: true, useUnifiedTopology: true });
+//
+// let db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   // we're connected!
+// });
 //downloaded packages
-app.use(morgan('common'));
-// app.use(myLogger);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.use(express.json());
+
+let myLogger = (req, res, next) => {
+  console.log(req.url);
+  next();
+};
+
+app.use(myLogger);
+app.use(morgan('common'));
 
 //movies
 // let movies = [
