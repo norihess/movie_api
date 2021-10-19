@@ -1,4 +1,4 @@
-let cors = require('cors');
+// let cors = require('cors');
 
 let http = require('http'),
   fs = require('fs'),
@@ -13,7 +13,7 @@ let express = require('express'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
 
-app.use(cors());
+// app.use(cors());
 //   myLogger = (req, res, next) => {
 //   console.log(req.url);
 //   next();
