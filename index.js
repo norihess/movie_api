@@ -25,14 +25,21 @@ let Users = Models.User;
 let Genre = Models.Genre;
 let Director = Models.Director;
 
-
+let util= require('util');
+let encoder = new util.TextEncoder('utf-8');
 //connecting database with connction URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
 { useNewUrlParser: true, useUnifiedTopology: true });
+
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+});
 //downloaded packages
 app.use(morgan('common'));
 // app.use(myLogger);
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride());
 
