@@ -28,8 +28,8 @@ let userSchema = mongoose.Schema ({
 
 //genre
 let genreSchema = mongoose.Schema({
-  Name: { type: string, required: true},
-  Desciption: { type: string, required: true}
+  Name: { type: String, required: true},
+  Desciption: { type: String, required: true}
 });
 
 //director
