@@ -25,8 +25,11 @@ let Users = Models.User;
 let Genre = Models.Genre;
 let Director = Models.Director;
 
-let util= require('util');
-let encoder = new util.TextEncoder('utf-8');
+//adding text-encoder code
+import * as encoding from 'text-encoding';
+import {encode as btoa} from 'base-64';
+var encoder = new encoding.TextEncoder();
+
 //connecting database with connction URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
 { useNewUrlParser: true, useUnifiedTopology: true });
