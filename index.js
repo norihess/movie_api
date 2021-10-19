@@ -2,17 +2,17 @@ let http = require('http'),
   fs = require('fs'),
   url = require('url'),
   addr = 'http://localhost:8080/';
-  // uuid = require('uuid');
+  uuid = require('uuid');
 
 //require()
 let express = require('express'),
   app = express(),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  methodOverride = require('method-override');
-  // uuid = require('uuid');
+  methodOverride = require('method-override'),
+  uuid = require('uuid');
 //   myLogger = (req, res, next) => {
-//   console.log(req.url);
+  // console.log(req.url);
 //   next();
 // };
 
