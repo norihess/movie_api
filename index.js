@@ -179,35 +179,49 @@ app.post('/users', (req, res) => {
     });
 });
 //UPDATE user's info
- app.put('/users/:Username', (req, res) => {
-   Users.findOneAndUpdate(
-     {Username: req.params.Username},
-     {
-     $set: {
-       Username: req.body.Username,
-       Password: req.body.Password,
-       Email: req.body.Email,
-       Birthday: req.body.Birthday
-     },
-   },
-   { new: true },
-   (err, updatedUser) => {
-     if (err) {
-       console.error(err);
-       res.status(500).send('Error: ' + err);
-     } else {
-       res.json(updatedUser);
-     }
-   });
- });
-// ADD a movie to a user's list of favorites
-app.post('/users/:Username/movies/:MovieID', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { FavoriteMovies: req.params.MovieID }
-   },
-   { new: true }, // This line makes sure that the updated document is returned
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
-    if (err) {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
+// ADD a movie to a user's list of favorites
+// app.post('/users/:Username/movies/:MovieID', (req, res) => {
+//   Users.findOneAndUpdate({ Username: req.params.Username }, {
+//      $push: { FavoriteMovies: req.params.MovieID }
+//    },
+//    { new: true }, // This line makes sure that the updated document is returned
+//   (err, updatedUser) => {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     } else {
+//       res.json(updatedUser);
+//     }
+//   });
+// });
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({Username: req.params.Username},
+  {
+    $push: {FavoriteMovies: req.params.MovieID}
+  },
+  {new: true},
+  (err, updatedUser) => {
+    console.log (updatedUser)
+    if(err) {
       console.error(err);
       res.status(500).send('Error: ' + err);
     } else {
