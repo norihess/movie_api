@@ -204,9 +204,8 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
    {
      $push: {FavoriteMovies: req.params.MovieID}
    },
-   {new: true},
+    {new: true}, //this line makes sure that the updated document is returned
    (err, updatedUser) => {
-     console.log (updatedUser)
      if(err) {
        console.error(err);
        res.status(500).send('Error: ' + err);
