@@ -247,22 +247,6 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
    });
  });
 
-// //PUT
-// //Allow users to update their user info (username)
-// app.put('/users/:username', (req, res) => {
-// res.send('Successful PUT request updating username' + req.params.username);
-// });
-//
-// //DELETE
-// //Allow users to remove a movie from their list of favorites
-// app.delete('/users/:username/favourites/:title', (req, res) => {
-// res.send('Successful DELETE request removing movie by title' + req.params.title + 'from list of favourites' + req.params.username); });
-//
-// //Allow existing users to deregister
-// app.delete('/users/:username', (req, res) => {
-// res.send('Successful DELETE request removing user: ' + req.params.username + ' from database');
-// });
-
 //error handler
 app.use(express.static('public'));
 
