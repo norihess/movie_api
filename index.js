@@ -200,7 +200,7 @@ app.put('/users/:Username', (req, res) => {
 });
 // ADD a movie to a user's list of favorites
 app.post('/users/:Username/Movies/:MovieID', (req, res) => {
-   Users.findByIdAndUpdate({Username: req.params.Username},
+   Users.findOneAndUpdate({Username: req.params.Username},
    {
      $push: {FavoriteMovies: req.params.MovieID}
    },
