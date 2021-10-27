@@ -185,7 +185,8 @@ app.put('/users/:Username', (req, res) => {
       Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
-      Birthday: req.body.Birthday
+      Birthday: req.body.Birthday,
+      FavoriteMovies: req.body.FavoriteMovies
     }
   },
   { new: true }, // This line makes sure that the updated document is returned
@@ -231,7 +232,7 @@ app.post('/users/:Username/Movies/:MovieID', (req, res) => {
    });
 
    // Delete a movie from the favorite list of an user
- app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+ app.delete('/users/:Username/Movies/:MovieID', (req, res) => {
    Users.findOneAndUpdate({Username: req.params.Username}, {
      $pull: {FavoriteMovies: req.params.MovieID}
    },
