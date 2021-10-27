@@ -22,42 +22,42 @@
        </tr>
        <tr>
            <td>GET request</td>
-           <td>/movies/:movieTitle</td>
+           <td>/movies/:Title</td>
            <td>return movie by it's title</td>
        </tr>
        <tr>
            <td>GET request</td>
-           <td>/genres/:genre</td>
+           <td>/genre/:Name</td>
            <td>return info about a specific movie genre</td>
        </tr>
        <tr>
            <td>GET request</td>
-           <td>/directors/:directorName</td>
+           <td>/director/:Name</td>
            <td>return info about movie directors</td>
        </tr>
        <tr>
            <td>POST request</td>
-           <td>/register</td>
-           <td>register to our system</td>
+           <td>/users</td>
+           <td>register new user to our system</td>
        </tr>
        <tr>
            <td>PUT request</td>
-           <td>/users/:ID/:infoToUpdate/:newValue</td>
+           <td>/users/:Username</td>
            <td>Update the persons username info</td>
        </tr>
        <tr>
            <td>POST request</td>
-           <td>/users/:ID/favorites/:newFavorite</td>
+           <td>/users/:Username/movies/:MovieID</td>
            <td>Add a movie to a specific user's profile</td>
        </tr>
        <tr>
            <td>DELETE request</td>
-           <td>/users/:id/unregister</td>
+           <td>/users/:Username</td>
            <td>Unregister a user from the database</td>
        </tr>
        <tr>
            <td>DELETE request</td>
-           <td>/users/:ID/favorites/:deleteFavorite</td>
+           <td>/users/:Username/movies/:MovieID</td>
            <td>Delete a favorite movie from the users favorites</td>
        </tr>
    </tbody></table>
