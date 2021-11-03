@@ -77,7 +77,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
  });
 
 //GETS movie by title
-app.get('/movies/:Title', (req, res) => {
+app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({Title: req.params.Title})
   .then((movie) => {
     res.json(movie);
@@ -88,7 +88,7 @@ app.get('/movies/:Title', (req, res) => {
   });
 });
 //GETS ALL directors
-app.get('/director', (req, res)=> {
+app.get('/director',passport.authenticate('jwt', { session: false }), (req, res)=> {
   Movies.find()
     .then((director) => {
       res.status(201).json(movies);
@@ -99,7 +99,7 @@ app.get('/director', (req, res)=> {
     });
 });
 // Gets director by name
-app.get('/director/:Name', (req, res) => {
+app.get('/director/:Name',passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ 'Director.Name': req.params.Name})
     .then((director) => {
       res.json(director.Director);
@@ -111,7 +111,7 @@ app.get('/director/:Name', (req, res) => {
   });
 
 // get all genres
-app.get('/genre', (req, res) => {
+app.get('/genre', passport.authenticate('jwt', { session: false }),(req, res) => {
       Genre.find()
         .then(genre => {
           res.status(201).json(genre);
@@ -123,7 +123,7 @@ app.get('/genre', (req, res) => {
     });
 
 //get genre by name
-app.get('/genre/:Name', (req, res) => {
+app.get('/genre/:Name',passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ 'Genre.Name': req.params.Name})
     .then((genre) => {
       res.json(genre.Genre);
@@ -136,7 +136,7 @@ app.get('/genre/:Name', (req, res) => {
 
 //POST
 // GET all users
-app.get('/users', (req, res) => {
+app.get('/users',passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find()
     .then((users) => {
       res.status(201).json(users);
@@ -147,7 +147,7 @@ app.get('/users', (req, res) => {
     });
 });
 // GET a user by username
-app.get('/users/:Username', (req, res) => {
+app.get('/users/:Username',passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
@@ -158,7 +158,7 @@ app.get('/users/:Username', (req, res) => {
     });
 });
 //ADD/POST a user
-app.post('/users', (req, res) => {
+app.post('/users',passport.authenticate('jwt', { session: false }), (req, res) => {
   //mongoDB command
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
@@ -188,7 +188,7 @@ app.post('/users', (req, res) => {
     });
 });
 //UPDATE user's info
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username',passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
@@ -208,7 +208,7 @@ app.put('/users/:Username', (req, res) => {
   });
 });
 // ADD a movie to a user's list of favorites
-app.post('/users/:Username/movies/:MovieID', (req, res) => {
+app.post('/users/:Username/movies/:MovieID',passport.authenticate('jwt', { session: false }),(req, res) => {
    Users.findOneAndUpdate({Username: req.params.Username},
    {
      $push: {FavoriteMovies: req.params.MovieID}
@@ -224,7 +224,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
    });
  });
  // Delete a user by their username
-   app.delete('/users/:Username', (req, res) => {
+   app.delete('/users/:Username',passport.authenticate('jwt', { session: false }), (req, res) => {
      Users.findOneAndRemove({ Username: req.params.Username})
      .then((user) => {
        if(!user) {
@@ -240,7 +240,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
    });
 
    // Delete a movie from the favorite list of an user
- app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+ app.delete('/users/:Username/movies/:MovieID',passport.authenticate('jwt', { session: false }), (req, res) => {
    Users.findOneAndUpdate({ Username: req.params.Username},
   {
      $pull: {FavoriteMovies: req.params.MovieID}
