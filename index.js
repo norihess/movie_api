@@ -11,9 +11,6 @@ let http = require('http'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
 
-//authentication
-let passport = require('passport');
-require('./passport');
 // app.use(cors());
 
 //mongoose
@@ -37,7 +34,12 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB',
 
 //downloaded packages
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//authentication
 let auth = require('./auth')(app);
+let passport = require('passport');
+require('./passport');
+
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(express.json());
