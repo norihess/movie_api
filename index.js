@@ -11,6 +11,9 @@ let http = require('http'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
 
+//authentication
+let passport = require('passport');
+require('./passport');
 // app.use(cors());
 
 //mongoose
@@ -34,6 +37,7 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB',
 
 //downloaded packages
 app.use(bodyParser.urlencoded({ extended: true }));
+let auth = require('./auth')(app);
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(express.json());
@@ -55,8 +59,9 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
+
 //GETS ALL movies
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
    Movies.find()
      .then((movies) => {
        res.status(201).json(movies);
