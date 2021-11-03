@@ -158,7 +158,7 @@ app.get('/users/:Username',passport.authenticate('jwt', { session: false }), (re
     });
 });
 //ADD/POST a user
-app.post('/users',passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post('/users', (req, res) => {
   //mongoDB command
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
