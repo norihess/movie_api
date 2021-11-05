@@ -30,7 +30,8 @@ let Director = Models.Director;
 
 //connecting database with connction URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
-{ useNewUrlParser: true, useUnifiedTopology: true });
+{ useNewUrlParser: true, useUnifiedTopology: true }),
+() => console.log ('\x1b [35m "," Database is connected..."]');
 
 //activating body-parser
 app.use(bodyParser.json());
