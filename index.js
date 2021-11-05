@@ -41,13 +41,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 //calling express
 app.use(express.json());
 
 //middleware
-app.use(passport.initialize());
+// app.use(passport.initialize());
 // app.use(passport.session());
 // app.use(passport.setAuthenticatedUser);
 
