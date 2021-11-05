@@ -38,10 +38,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //calling passport and authorization
-app.use(passport.initialize());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
+app.use(passport.initialize());
 
 
 //calling express
