@@ -1,4 +1,4 @@
-// let cors = require('cors');
+let cors = require('cors');
 //require()
 let http = require('http'),
   fs = require('fs'),
@@ -38,6 +38,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //calling passport and authorization
+app.use(passport.initialize());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
