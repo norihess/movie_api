@@ -32,6 +32,7 @@ let Director = Models.Director;
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
 { useNewUrlParser: true, useUnifiedTopology: true });
 
+
 //activating body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -40,14 +41,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
-
-
+app.use(passport.initialize());
 
 //calling express
 app.use(express.json());
 
+//middleware
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(passport.setAuthenticatedUser);
+
 app.use(methodOverride());
-app.use(passport.initialize());
 
 let myLogger = (req, res, next) => {
   console.log(req.url);
