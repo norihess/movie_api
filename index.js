@@ -1,4 +1,4 @@
-let cors = require('cors');
+// let cors = require('cors');
 //require()
 let http = require('http'),
   fs = require('fs'),
@@ -23,10 +23,6 @@ let Users = Models.User;
 let Genre = Models.Genre;
 let Director = Models.Director;
 
-//adding text-encoder code
-// import * as encoding from 'text-encoding';
-// import {encode as btoa} from 'base-64';
-// var encoder = new encoding.TextEncoder();
 
 //connecting database with connction URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
@@ -41,15 +37,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
-// app.use(passport.initialize());
 
 //calling express
 app.use(express.json());
-
-//middleware
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(passport.setAuthenticatedUser);
 
 app.use(methodOverride());
 
