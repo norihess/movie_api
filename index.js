@@ -24,7 +24,7 @@ let Director = Models.Director;
 
 
 //connecting database with connction URI
-mongoose.connect('https://git.heroku.com/nori-myflixdb.git',
+mongoose.connect('https://git.heroku.com/norih-myflixdb.git',
 { useNewUrlParser: true, useUnifiedTopology: true });
 
 // mongoose.connect('mongodb://localhost:27017/myFlixDB',
