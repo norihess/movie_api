@@ -1,0 +1,7 @@
+{"_id":{"$oid":"615f4af0da06b44d991c26ff"},"Name":"Brad Gig","Username":"BGig1","Password":"123456","Birthday":{"$date":"1987-10-04T00:00:00Z"},"Email":"BG@gmail.com"}
+{"_id":{"$oid":"615f4b4cda06b44d991c2701"},"Name":"Ashley Smith","Username":"ASmither","Password":"UPW3","Birthday":{"$date":"1990-03-12T00:00:00Z"},"FavoriteMovies":[{"$oid":"615f3f79da06b44d991c26f8"},{"$oid":"615f3e47da06b44d991c26f7"}]}
+{"_id":{"$oid":"615f4b72da06b44d991c2702"},"Name":"James Morton","Username":"JMort","Password":"UPW4","Birthday":{"$date":"1993-12-20T00:00:00Z"},"FavoriteMovies":[]}
+{"_id":{"$oid":"615f4b99da06b44d991c2703"},"Name":"Jamie Krill","Username":"JK2rill","Password":"UPW5","Birthday":{"$date":"2000-07-01T00:00:00Z"},"FavoriteMovies":[{"$oid":"615f324fda06b44d991c26f3"},{"$oid":"615f1dccda06b44d991c26f0"},{"$oid":"615f3038da06b44d991c26f1"},{"$oid":"615f3038da06b44d991c26f1"}]}
+{"_id":{"$oid":"61799c7b2bf64479cdd785db"},"Username":"JHem","Password":"UPW4","Email":"jenhemming@gmail.com","FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6182f9de0cf82df873a1341a"},"Username":"AuthorizedUser","Password":"password10","Email":"Auser1@gmail.com","Birthday":{"$date":{"$numberLong":"-438048000000"}},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"61840c2cc325e31c41e65c83"},"Username":"thegreatpapyrus","Password":"spagetti","Email":"the_great_papyrus@gmail.com","Birthday":{"$date":{"$numberLong":"-438048000000"}},"FavoriteMovies":[],"__v":0}

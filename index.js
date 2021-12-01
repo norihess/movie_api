@@ -24,11 +24,11 @@ let Director = Models.Director;
 
 
 //connecting database with connction URI
-mongoose.connect('https://git.heroku.com/norih-myflixdb.git',
-{ useNewUrlParser: true, useUnifiedTopology: true });
-
-// mongoose.connect('mongodb://localhost:27017/myFlixDB',
+// mongoose.connect('https://git.heroku.com/norih-myflixdb.git',
 // { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB',
+{ useNewUrlParser: true, useUnifiedTopology: true });
 //activating body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -186,7 +186,8 @@ app.post('/users',
     let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
+      return res.status(422).json({ errors: errors.array()
+      });
     }
 
     let hashedPassword = Users.hashPassword(req.body.Password);
