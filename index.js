@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //cors express
 let cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234' , 'https://myflix-angular-client.herokuapp.com/'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234' , 'https://nori-myflixdb.herokuapp.com/'];
 
 app.use(cors({
   origin: (origin, callback) => {
