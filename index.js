@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //cors express
 let cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://the-great-norihess-site.netlify.app/'];
 
 app.use(cors({
   origin: (origin, callback) => {
