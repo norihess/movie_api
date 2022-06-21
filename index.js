@@ -1,18 +1,20 @@
-//require()
+// Load express framework
 let http = require('http'),
   fs = require('fs'),
   url = require('url'),
   addr = 'http://localhost:8080/',
-  // uuid = require('uuid');
   express = require('express'),
   app = express(),
+
+  // Import middleware libraries: Morgan, body-parser, and uuid
   morgan = require('morgan'),
+
+  // Use body-parser middleware function
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
 
-// app.use(cors());
 
-//mongoose
+// Import Mongoose, models.js and respective models defined in model.js
 let mongoose = require('mongoose');
 let Models = require('./models.js');
 
@@ -69,7 +71,10 @@ let myLogger = (req, res, next) => {
 app.use(myLogger);
 app.use(morgan('common'));
 
-// GET requests
+/**
+ * GET: Returns welcome message for '/' request URL
+ * @returns Welcome message
+ */
 app.get('/', (req, res) => {
   res.send('Welcome to the club!');
 });
@@ -79,7 +84,12 @@ app.get('/documentation', (req, res) => {
 });
 
 
-//GETS ALL movies
+/**
+ * GET: Returns a list of ALL movies to the user
+ * Request body: Bearer token
+ * @returns array of movie objects
+ * @requires passport
+ */
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
    Movies.find()
      .then((movies) => {
@@ -91,7 +101,14 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
      });
  });
 
-//GETS movie by title
+/**
+ * GET: Returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+ * Request body: Bearer token
+ * @param movieId
+ * @returns movie object
+ * @requires passport
+ */
+
 app.get('/movies/:Title', (req, res) => {
   Movies.findOne({Title: req.params.Title})
   .then((movie) => {
@@ -102,7 +119,15 @@ app.get('/movies/:Title', (req, res) => {
     res.status(500).send('Error: ', err);
   });
 });
-//GETS ALL directors
+
+/**
+ * GET: Returns data about a director (bio, birth year, death year) by name
+ * Request body: Bearer token
+ * @param Name (of director)
+ * @returns director object
+ * @requires passport
+ */
+
 app.get('/director', (req, res)=> {
   Movies.find()
     .then((director) => {
@@ -125,7 +150,14 @@ app.get('/director/:Name', (req, res) => {
     });
   });
 
-// get all genres
+/**
+ * GET: Returns data about a genre (description) by name/title (e.g., “Fantasy”)
+ * Request body: Bearer token
+ * @param Name (of genre)
+ * @returns genre object
+ * @requires passport
+ */
+
 app.get('/genre',(req, res) => {
       Genre.find()
         .then(genre => {
@@ -149,8 +181,12 @@ app.get('/genre/:Name', (req, res) => {
     });
   });
 
-//POST
-// GET all users
+/** 
+ * GET: Returns a list of ALL users
+ * Request body: Bearer token
+ * @returns array of user objects
+ * @requires passport
+ */
 app.get('/users', (req, res) => {
   Users.find()
     .then((users) => {
@@ -161,7 +197,14 @@ app.get('/users', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
-// GET a user by username
+
+/**
+ * GET: Returns data on a single user (user object) by username
+ * Request body: Bearer token
+ * @param Username
+ * @returns user object
+ * @requires passport
+ */
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
@@ -172,7 +215,12 @@ app.get('/users/:Username', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
-//ADD/POST a user
+
+/**
+ * POST: Allows new users to register; Username, Password & Email are required fields!
+ * Request body: Bearer token, JSON with user information
+ * @returns user object
+ */
 app.post('/users',
   // Validation logic here for request
   [
@@ -216,7 +264,13 @@ app.post('/users',
         res.status(500).send('Error: ' + error);
       });
   });
-//UPDATE user's info
+/**
+ * PUT: Allow users to update their user info (find by username)
+ * Request body: Bearer token, updated user info
+ * @param Username
+ * @returns user object with updates
+ * @requires passport
+ */
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
@@ -236,7 +290,14 @@ app.put('/users/:Username', (req, res) => {
     }
   });
 });
-// ADD a movie to a user's list of favorites
+/**
+ * POST: Allows users to add a movie to their list of favorites
+ * Request body: Bearer token
+ * @param username
+ * @param movieId
+ * @returns user object
+ * @requires passport
+ */
 app.post('/users/:Username/movies/:MovieID',(req, res) => {
    Users.findOneAndUpdate({Username: req.params.Username},
    {
@@ -252,7 +313,13 @@ app.post('/users/:Username/movies/:MovieID',(req, res) => {
      }
    });
  });
- // Delete a user by their username
+/**
+ * DELETE: Allows existing users to deregister
+ * Request body: Bearer token
+ * @param Username
+ * @returns success message
+ * @requires passport
+ */
    app.delete('/users/:Username', (req, res) => {
      Users.findOneAndRemove({ Username: req.params.Username})
      .then((user) => {
@@ -268,7 +335,14 @@ app.post('/users/:Username/movies/:MovieID',(req, res) => {
      });
    });
 
-   // Delete a movie from the favorite list of an user
+/**
+ * DELETE: Allows users to remove a movie from their list of favorites
+ * Request body: Bearer token
+ * @param Username
+ * @param movieId
+ * @returns user object
+ * @requires passport
+ */
  app.delete('/users/:Username/movies/:MovieID', (req, res) => {
    Users.findOneAndUpdate({ Username: req.params.Username},
   {
@@ -285,7 +359,9 @@ app.post('/users/:Username/movies/:MovieID',(req, res) => {
    });
  });
 
-//error handler
+/**
+ * Serves sstatic content for the app from the 'public' directory
+ */
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
