@@ -1,21 +1,22 @@
-// Load express framework
+//require()
 let http = require('http'),
   fs = require('fs'),
   url = require('url'),
   addr = 'http://localhost:8080/',
+  // uuid = require('uuid');
   express = require('express'),
   app = express(),
-
-  // Import middleware libraries: Morgan, body-parser, and uuid
   morgan = require('morgan'),
-
-  // Use body-parser middleware function
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
 
 
-// Import Mongoose, models.js and respective models defined in model.js
+//mongoose
 let mongoose = require('mongoose');
+//connecting database with connction URI
+mongoose.connect('mongodb+srv://norihess:password01@myflixdb.fy3kg.mongodb.net/myFlixDB?retryWrites=true&w=majority',
+  { useNewUrlParser: true, useUnifiedTopology: true });
+  
 let Models = require('./models.js');
 
 //importing models
@@ -24,20 +25,23 @@ let Users = Models.User;
 let Genre = Models.Genre;
 let Director = Models.Director;
 
-
-//connecting database with connction URI
-// mongoose.connect('https://git.heroku.com/norih-myflixdb.git',
-// { useNewUrlParser: true, useUnifiedTopology: true });
-
-mongoose.connect('mongodb://localhost:27017/myFlixDB',
-{ useNewUrlParser: true, useUnifiedTopology: true });
-//activating body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //cors express
-const cors = require('cors');
-app.use(cors());
+let cors = require('cors');
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:4200', 'http://127.0.0.1:4200', 'https://the-great-norihess-site.netlify.app', 'http://testsite.com', 'http://localhost:1234'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 //calling passport and authorization
 let auth = require('./auth')(app);
@@ -60,10 +64,7 @@ let myLogger = (req, res, next) => {
 app.use(myLogger);
 app.use(morgan('common'));
 
-/**
- * GET: Returns welcome message for '/' request URL
- * @returns Welcome message
- */
+// GET requests
 app.get('/', (req, res) => {
   res.send('Welcome to the club!');
 });
@@ -73,12 +74,7 @@ app.get('/documentation', (req, res) => {
 });
 
 
-/**
- * GET: Returns a list of ALL movies to the user
- * Request body: Bearer token
- * @returns array of movie objects
- * @requires passport
- */
+//GETS ALL movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
    Movies.find()
      .then((movies) => {
@@ -90,14 +86,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
      });
  });
 
-/**
- * GET: Returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
- * Request body: Bearer token
- * @param movieId
- * @returns movie object
- * @requires passport
- */
-
+//GETS movie by title
 app.get('/movies/:Title', (req, res) => {
   Movies.findOne({Title: req.params.Title})
   .then((movie) => {
@@ -108,15 +97,7 @@ app.get('/movies/:Title', (req, res) => {
     res.status(500).send('Error: ', err);
   });
 });
-
-/**
- * GET: Returns data about a director (bio, birth year, death year) by name
- * Request body: Bearer token
- * @param Name (of director)
- * @returns director object
- * @requires passport
- */
-
+//GETS ALL directors
 app.get('/director', (req, res)=> {
   Movies.find()
     .then((director) => {
@@ -139,14 +120,7 @@ app.get('/director/:Name', (req, res) => {
     });
   });
 
-/**
- * GET: Returns data about a genre (description) by name/title (e.g., “Fantasy”)
- * Request body: Bearer token
- * @param Name (of genre)
- * @returns genre object
- * @requires passport
- */
-
+// get all genres
 app.get('/genre',(req, res) => {
       Genre.find()
         .then(genre => {
@@ -170,12 +144,8 @@ app.get('/genre/:Name', (req, res) => {
     });
   });
 
-/** 
- * GET: Returns a list of ALL users
- * Request body: Bearer token
- * @returns array of user objects
- * @requires passport
- */
+//POST
+// GET all users
 app.get('/users', (req, res) => {
   Users.find()
     .then((users) => {
@@ -186,14 +156,7 @@ app.get('/users', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
-
-/**
- * GET: Returns data on a single user (user object) by username
- * Request body: Bearer token
- * @param Username
- * @returns user object
- * @requires passport
- */
+// GET a user by username
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
@@ -204,12 +167,7 @@ app.get('/users/:Username', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
-
-/**
- * POST: Allows new users to register; Username, Password & Email are required fields!
- * Request body: Bearer token, JSON with user information
- * @returns user object
- */
+//ADD/POST a user
 app.post('/users',
   // Validation logic here for request
   [
@@ -253,13 +211,7 @@ app.post('/users',
         res.status(500).send('Error: ' + error);
       });
   });
-/**
- * PUT: Allow users to update their user info (find by username)
- * Request body: Bearer token, updated user info
- * @param Username
- * @returns user object with updates
- * @requires passport
- */
+//UPDATE user's info
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
@@ -279,14 +231,7 @@ app.put('/users/:Username', (req, res) => {
     }
   });
 });
-/**
- * POST: Allows users to add a movie to their list of favorites
- * Request body: Bearer token
- * @param username
- * @param movieId
- * @returns user object
- * @requires passport
- */
+// ADD a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID',(req, res) => {
    Users.findOneAndUpdate({Username: req.params.Username},
    {
@@ -302,13 +247,7 @@ app.post('/users/:Username/movies/:MovieID',(req, res) => {
      }
    });
  });
-/**
- * DELETE: Allows existing users to deregister
- * Request body: Bearer token
- * @param Username
- * @returns success message
- * @requires passport
- */
+ // Delete a user by their username
    app.delete('/users/:Username', (req, res) => {
      Users.findOneAndRemove({ Username: req.params.Username})
      .then((user) => {
@@ -324,14 +263,7 @@ app.post('/users/:Username/movies/:MovieID',(req, res) => {
      });
    });
 
-/**
- * DELETE: Allows users to remove a movie from their list of favorites
- * Request body: Bearer token
- * @param Username
- * @param movieId
- * @returns user object
- * @requires passport
- */
+   // Delete a movie from the favorite list of an user
  app.delete('/users/:Username/movies/:MovieID', (req, res) => {
    Users.findOneAndUpdate({ Username: req.params.Username},
   {
@@ -348,9 +280,7 @@ app.post('/users/:Username/movies/:MovieID',(req, res) => {
    });
  });
 
-/**
- * Serves sstatic content for the app from the 'public' directory
- */
+//error handler
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {

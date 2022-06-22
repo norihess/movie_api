@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/norihess/movie_api.git"
+    "url": "git+https://github.com/Salvia17/movie_api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/norihess/movie_api/issues"
+    "url": "https://github.com/Salvia17/movie_api/issues"
   },
-  "homepage": "https://github.com/norihess/movie_api#readme",
+  "homepage": "https://github.com/Salvia17/movie_api#readme",
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.9",
